@@ -1,0 +1,75 @@
+.cta-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.cta-content {
+    background-image: linear-gradient(to right, hsl(25 95% 60% / .2) , hsl(280 100% 70% / .2));
+    border: 1px solid hsl(25 95% 60% / .3);
+  border-radius: 1.5rem;
+  padding: 3rem;
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+}
+
+.cta-heading {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.cta-icon {
+  color: #ff8c2f;
+  width: 2rem;
+  height: 2rem;
+}
+
+.cta-subheading {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  color: rgb(209 213 219 / 1);
+  margin-bottom: 32px;
+      max-width: 42rem;
+}
+
+.cta-button {
+  background: #ff8c2f;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* 👈 adds spacing between text and icon */
+  transition: box-shadow 0.3s ease;
+}
+
+.cta-button:hover {
+   box-shadow: 0 0 40px hsl(25 95% 60% / .4);
+}
+
+.cta-btn-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.cta-note {
+  margin-top: 20px;
+  font-size: .875rem;
+  color: rgb(156 163 175 / 1);
+}

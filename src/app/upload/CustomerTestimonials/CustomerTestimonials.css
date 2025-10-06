@@ -1,0 +1,123 @@
+.testimonial-wrapper {
+  padding: 60px 20px;
+  text-align: center;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.testimonails-main{
+    width: 100%;
+    max-width: 1300px;
+}
+.testimonial-title {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.testimonial-subtitle {
+  font-size: 1.25rem;
+    line-height: 1.75rem;
+  margin-bottom: 60px;
+  color: #d1d5db;
+}
+
+.testimonial-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  
+}
+
+.testimonial-card {
+  background-color: #0000004d;
+  border-radius: 20px;
+  padding: 25px;
+  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stars {
+  margin-bottom: 20px;
+  font-size: 11px;
+  margin-top: 10px;
+}
+
+.quote {
+  font-style: italic;
+  color: #d1d5db;
+  line-height: 1.55rem;
+  flex-grow: 1;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #ff7a30;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: white;
+  margin-right: 15px;
+  border:2px solid #fff3;
+}
+.avatar-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+    border:2px solid #fff3;
+}
+.username {
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.role {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+  padding: 30px 20px;
+  background-color: #0003;
+ border: 1px solid rgba(255, 255, 255, 0.1);;
+  border-radius: 20px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat .value {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.stat .label {
+  font-size: 14px;
+  opacity: 0.8;
+}

@@ -1,0 +1,82 @@
+.pricing-container {
+  
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 1.5rem;
+padding-top: 0;
+margin-top: 0;
+  text-align: center;
+  color: white;
+  max-width: 100%;
+}
+
+
+.free-minute-pricing {
+  margin-top: 60px;
+  margin-bottom: 100px;
+  font-weight: 500;
+  color: #fa8938;
+  background: #fa893833;
+  padding: 17px 30px;
+  border-radius: 50px;
+  border:1px solid #fa89384d;
+  width: fit-content;
+    display: flex;
+  flex-direction: column;
+
+}
+.free-minute-pricing span{
+  color: #9ca3af;
+  margin-top: 8px;
+  font-size: .75rem;
+    line-height: 1rem;
+}
+
+
+/* Buttons */
+.pricing-buttons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.pricing-buttons button {
+  background-color: #000253;
+  color: white;
+  border: 2px solid #f7b631;
+  border-radius: 12px;
+  padding: 0.9rem 1.2rem;
+  font-size: 1.05rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pricing-buttons button:hover {
+  background-color: #f7b631;
+  color: #000;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+ 
+
+  .pricing-buttons {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .pricing-buttons button {
+    flex: 1;
+  }
+}
+@media(max-width:768px){
+  
+.pricing-buttons {
+ flex-direction: column;
+}
+}
+
