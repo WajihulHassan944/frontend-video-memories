@@ -87,7 +87,7 @@
 .enhancement-item {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  flex-direction: column;
   margin-top: 2px;
 }
 

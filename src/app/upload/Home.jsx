@@ -167,24 +167,11 @@ const handleUpload = async () => {
     const durationMinutes = Math.ceil(duration / 60);
     const balance = user?.wallet?.balance || 0;
 
-    // ✅ Compute enhancement credits dynamically
-    const enhancementRates = {
-      denoising: { '1080p': 2, '4K': 6 },
-      face: { '1080p': 3, '4K': 8 },
-      color: { '1080p': 2, '4K': 5 },
-      hdr: { '1080p': 4, '4K': 10 },
-      upscaling: { '1080p': 5, '4K': 15 },
-    };
 
-    const qualityKey = height >= 2160 ? '4K' : '1080p';
-    let enhancementCredits = 0;
+     const totalEnhancementCredits = Array.isArray(enhancements)
+      ? enhancements.reduce((sum, item) => sum + (item.creditsUsed || 0), 0)
+      : 0;
 
-    for (const [key, selected] of Object.entries(enhancements)) {
-      if (selected) {
-        const rate = enhancementRates[key]?.[qualityKey] || 0;
-        enhancementCredits += rate * durationMinutes;
-      }
-    }
 
     // ✅ Add free minute logic (if applicable)
     const hasFreeMinute =
@@ -193,7 +180,7 @@ const handleUpload = async () => {
       height < 4320;
 
     const isUsingFreeMinute = hasFreeMinute && durationMinutes <= 1;
-    const totalCost = isUsingFreeMinute ? 0 : enhancementCredits;
+    const totalCost = isUsingFreeMinute ? 0 : totalEnhancementCredits;
 
     if (isUsingFreeMinute) {
       alert("🎁 Using free 1-minute conversion.");
@@ -420,7 +407,16 @@ console.log(signedUrl);
     (isLoggedIn && showVideoNote && videoMeta && !videoMeta.canProceed) ||
     !videoFile ||
     noEnhancementSelected;
-
+console.log("=== Button Disable Debug ===");
+  console.log("uploading:", uploading);
+  console.log("isLoggedIn:", isLoggedIn);
+  console.log("showVideoNote:", showVideoNote);
+  console.log("videoMeta:", videoMeta);
+  console.log("videoMeta.canProceed:", videoMeta?.canProceed);
+  console.log("videoFile:", videoFile);
+  console.log("noEnhancementSelected:", noEnhancementSelected);
+  console.log("isDisabled (final):", isDisabled);
+  console.log("============================");
   return (
     <button
       className="convert-btn"
