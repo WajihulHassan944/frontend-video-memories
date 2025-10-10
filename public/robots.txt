@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://frontend-3d-exclusive.vercel.app/sitemap.xml
+Sitemap: https://frontend-video-memories.vercel.app/sitemap.xml

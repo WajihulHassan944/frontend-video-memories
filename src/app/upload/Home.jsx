@@ -375,12 +375,10 @@ console.log(signedUrl);
     </div>
   )}
   {uploadStatus && <p className="upload-status">{uploadStatus}</p>}
-{videoMeta && videoMeta.duration && (
   <EnhancementOptions
-    videoTime={videoMeta.duration}
+    videoTime={videoMeta?.duration}
     onChange={(selected) => setEnhancements(selected)}
   />
-)}
 
 {uploading && (
   <div className="upload-progress-container-new">

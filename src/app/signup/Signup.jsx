@@ -253,7 +253,7 @@ return (
     {subscribeNewsletter && <FiCheck size={12} color="#fff" />}
   </div>
   <label className="checked-label">
-    Yes, I would like to receive special promotions and tips & tricks for the best 3D experiences.
+Yes, sign me up for exclusive promotions and tips to make my videos look even better.
   </label>
 </div>
 
