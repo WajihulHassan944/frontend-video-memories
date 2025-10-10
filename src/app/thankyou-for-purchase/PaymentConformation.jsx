@@ -62,7 +62,7 @@ const lastInvoice = user?.invoices
     Download Invoice
   </button>
   <Link href="/upload">
-    <button className="upload-btn">Start 3D processing</button>
+    <button className="upload-btn">Start video restoration</button>
   </Link>
 </div>
 

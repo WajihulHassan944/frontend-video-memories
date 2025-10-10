@@ -3,44 +3,45 @@ import React from "react";
 import ClientLayout from "./ClientLayout";
 
 export const metadata = {
-  title: "Videomemories | Restore your videos",
+  title: "Video Memories | AI-Powered Video Enhancement",
   description:
-    "Transform your flat 2D videos into immersive 3D experiences for Meta Quest, Apple Vision Pro, and VR headsets. Upload, convert, and enjoy lifelike 3D content with Xclusive 3D.",
+    "Transform your old videos into stunning, crystal-clear memories with AI-powered enhancement. Restore colors, remove noise, upscale to 8K, and relive your precious moments in professional quality.",
   keywords: [
-    "2D to 3D video conversion",
-    "3D video converter",
-    "VR content creation",
-    "Meta Quest 3D videos",
-    "Apple Vision Pro 3D",
-    "AI video conversion",
-    "3D SBS video",
-    "MV-HEVC",
+    "AI video enhancement",
+    "video upscaling",
+    "denoising",
+    "color correction",
+    "restore old videos",
+    "HDR conversion",
+    "face enhancement",
+    "AI-powered restoration",
+    "video enhancer online",
   ],
   alternates: {
-    canonical: "https://xclusive3d.com",
+    canonical: "https://videomemories.eu",
   },
   openGraph: {
-    title: "Xclusive 3D | Convert 2D Videos into Immersive 3D",
+    title: "Video Memories | Restore and Enhance Your Videos with AI",
     description:
-      "Easily convert your 2D videos into VR-ready 3D formats. Perfect for Meta Quest, Apple Vision Pro, and immersive video experiences.",
-    url: "https://xclusive3d.com",
-    siteName: "Xclusive 3D",
+      "Bring your old family videos back to life with AI-powered enhancement. Upscale to 8K, remove noise, and restore vivid colors effortlessly.",
+    url: "https://videomemories.eu",
+    siteName: "Video Memories",
     images: [
       {
-        url: "https://www.xclusive3d.com/assets/og-home.png",
+        url: "https://frontend-video-memories.vercel.app/assets/og-home.png",
         width: 1200,
         height: 630,
-        alt: "Xclusive 3D homepage",
+        alt: "Video Memories - AI Video Enhancement",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Xclusive 3D | Convert 2D Videos into Immersive 3D",
+    title: "Video Memories | AI-Powered Video Enhancement",
     description:
-      "Convert your videos into immersive 3D for Meta Quest & Apple Vision Pro. Start your 3D experience today.",
-    images: ["https://www.xclusive3d.com/assets/og-home.png"],
+      "Enhance and restore your old videos with AI. Experience vibrant colors, crystal-clear quality, and 8K upscaling.",
+    images: ["https://frontend-video-memories.vercel.app/assets/og-home.png"],
   },
   robots: {
     index: true,
@@ -72,20 +73,20 @@ export default function RootLayout({ children }) {
         />
         <link rel="manifest" href="/site.webmanifest" />
 
-        {/* ✅ JSON-LD Structured Data */}
+        {/* ✅ JSON-LD Structured Data for SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "Xclusive 3D",
-              url: "https://xclusive3d.com",
-              logo: "https://xclusive3d.com/logoMain.png",
+              name: "Video Memories",
+              url: "https://videomemories.eu",
+              logo: "https://frontend-video-memories.vercel.app/logo.png",
               sameAs: [
-                "https://www.facebook.com/xclusive3d",
-                "https://twitter.com/xclusive3d",
-                "https://www.linkedin.com/company/xclusive3d",
+                "https://www.facebook.com/videomemories",
+                "https://twitter.com/videomemories",
+                "https://www.linkedin.com/company/videomemories",
               ],
             }),
           }}
@@ -96,12 +97,33 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "Xclusive 3D",
-              url: "https://xclusive3d.com",
+              name: "Video Memories",
+              url: "https://videomemories.eu",
               potentialAction: {
                 "@type": "SearchAction",
-                target: "https://xclusive3d.com/search?q={search_term_string}",
+                target:
+                  "https://videomemories.eu/search?q={search_term_string}",
                 "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              name: "AI Video Enhancement Service",
+              brand: "Video Memories",
+              description:
+                "AI-powered video enhancement for denoising, upscaling, color correction, and HDR conversion.",
+              offers: {
+                "@type": "Offer",
+                url: "https://videomemories.eu/pricing",
+                priceCurrency: "PKR",
+                price: "7392",
+                availability: "https://schema.org/InStock",
               },
             }),
           }}
