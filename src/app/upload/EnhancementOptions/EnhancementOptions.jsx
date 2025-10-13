@@ -134,7 +134,6 @@ const EnhancementOptions = ({ onChange, videoTime = 0 }) => {
                 className="enhancement-select"
               >
                 <option value="1080p">1080p</option>
-                <option value="2K">2K</option>
                 <option value="4K">4K</option>
                 <option value="8K">8K</option>
               </select>
