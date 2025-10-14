@@ -259,7 +259,7 @@ console.log(signedUrl);
 
   return (
     <div className="xclusive-container">
-<h1 className='uploadTitle'>Upload Your Video and See the Difference</h1>
+<h1 className='uploadTitle'><span className='highlight'>Upload Your Video</span> and See the Difference</h1>
     <center>  <div className="upload-section">
  
     <>

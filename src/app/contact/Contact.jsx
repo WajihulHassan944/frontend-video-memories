@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 import './contact.css';
-import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa';
 import { baseUrl } from '@/const';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -73,7 +72,8 @@ try {
     { text: "your video", className: "bold" },
     { text: "project", className: "gradient" },
   ]}
-  description="Have questions about video enhancement? Need help with a custom \n project? We're here to help."
+   description={`<span className='highlight'>Have questions</span> about video enhancement? Need help with a custom \n project? We're here to help.`}
+
   descColor="#ababba" 
 />  
 
@@ -83,7 +83,7 @@ try {
       
       {/* Left: Contact Form */}
       <div className="contact-sec-form-box">
-        <h2 className="contact-sec-heading">Send us a message</h2>
+        <h2 className="contact-sec-heading">Send us <span className='highlight'>a message</span></h2>
         <form onSubmit={handleSubmit} className="contact-sec-form">
           <div className="contact-sec-input-row">
             <div className="contact-sec-input-group">

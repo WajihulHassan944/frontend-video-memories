@@ -25,7 +25,7 @@ const itemVariants = {
 const Whycloud = () => {
   return (
     <div className="why-cloud-wrapper">
-      <h2 className="why-heading">Why upgrade your video content with VideoMemories.eu</h2>
+      <h2 className="why-heading"><span className='highlight'>Why upgrade your video</span> content with VideoMemories.eu</h2>
 
       <motion.div
         className="features"

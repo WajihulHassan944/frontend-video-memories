@@ -74,9 +74,9 @@
   margin-bottom: 15px;
   text-align: left;
 }
-.pricing-card:nth-of-type(2) .pricing-card-name{
+/* .pricing-card:nth-of-type(2) .pricing-card-name{
     color: #fa8938;
-}
+} */
 .pricing-feature-list {
   list-style: none;
   padding: 0;

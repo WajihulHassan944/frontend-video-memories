@@ -158,7 +158,7 @@ const [hoveredIndex, setHoveredIndex] = useState(null);
 </div>
 
 
-      <h1 className="buy-credit-title">Buy your enhancement credits</h1>
+      <h1 className="buy-credit-title">Buy your <span className='highlight'>enhancement credits</span></h1>
       <div className="pricing-card-wrapper">
         {plans.map((plan, index) => (
           <div

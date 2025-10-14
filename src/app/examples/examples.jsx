@@ -11,7 +11,7 @@ const Examples = () => {
     <div className='examples-wrapper'>
       
 <HeroSection 
-  subtitle="Real Customer Examples"
+  subtitle={`<span className="highlight">Real Customer Examples</span>`}
   title={[
     { text: "Amazing", className: "outline" },
     { text: "Before &", className: "bold" },

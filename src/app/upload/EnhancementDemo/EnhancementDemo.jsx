@@ -6,7 +6,7 @@ export default function EnhancementDemo() {
   return (
     <section className="example-section">
       <div className="example-inner">
-        <h2 className="hero-title">See the difference in action</h2>
+        <h2 className="hero-title"><span className='highlight'>See the difference</span> in action</h2>
         <p className="hero-sub">Old family videos transformed from poor to perfect quality</p>
 
         <div className="device-frame">

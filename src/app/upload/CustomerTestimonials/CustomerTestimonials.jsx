@@ -59,7 +59,7 @@ const CustomerTestimonials = () => {
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
         >
-          What our customers say
+          What our <span className='highlight'>customers say</span>
         </motion.h2>
 
         <motion.p
