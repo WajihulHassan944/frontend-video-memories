@@ -1,13 +1,13 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Pusher from 'pusher-js';
-import { FiDownload, FiUploadCloud, FiLoader } from 'react-icons/fi';
 import './dashboard.css';
 import withAuth from '@/hooks/withAuth';
+import WriteReviewSection from './WriteReviewSection/WriteReviewSection';
+import { AlertCircle, CheckCircle, Clock,  Download,  UploadCloud } from 'lucide-react';
 
 const Dashboard = () => {
   const user = useSelector((state) => state.user);
@@ -18,14 +18,6 @@ useEffect(() => {
   // Load videos from Redux if available
   if (user?.videos?.length) {
     setVideos(user.videos);
-  } else {
-    // Fallback to fetch from backend on refresh
-    fetch('/api/videos')
-      .then(res => res.json())
-      .then(data => {
-        if (data?.videos) setVideos(data.videos);
-      })
-      .catch(err => console.error('❌ Failed to fetch videos:', err));
   }
 
   // Setup Pusher
@@ -58,80 +50,122 @@ useEffect(() => {
 }, [user]);
 
   const totalVideos = videos.length;
-  const processing = videos.filter((v) => (v.status === 'processing' || v.status === 'pending' || v.status === 'uploaded')).length;
   const completed = videos.filter((v) => v.status === 'completed').length;
-  const failed = videos.filter((v) => v.status === 'failed').length;
+  const hasPendingReview = user?.invoices?.some(inv => inv.reviewGiven === false);
+  
+return (
+  <main className="dashboard">
+    <h2 className="dashboard-title">Dashboard</h2>
+    <p className="dashboard-subtitle">Manage your conversions and credits</p>
 
-  return (
-    <main className="dashboard">
-      <Image
-        src="/logo.png"
-        alt="Xclusive 3D Logo"
-        width={160}
-        height={140}
-        className="dashboard-logo"
-      />
-
-      <h2 className="title">Dashboard</h2>
-
-      {/* Videos Table */}
-      <section className="card-1">
-        <header className="row row-head">
-          <span>Sr.</span>
-          <span>Video</span>
-          <span>Status</span>
-          <span>Download</span>
-        </header>
-
-        {videos.length === 0 ? (
-          <p className="no-videos">
-            <em>No videos uploaded yet.</em>
-          </p>
-        ) : (
-          videos.map((v, index) => (
-            <div key={v._id} className="row row-body">
-              <span>{index + 1}</span>
-              <span>{v.originalFileName}</span>
-              <span
-                className={`pill ${v.status.toLowerCase().replace(/\s/g, '-')}`}
-              >
-                {v.status}
-              </span>
-              <span className="download">
-                {v.status === 'completed' ? (
-                  <Link href={v.convertedUrl} target="_blank">
-                    <FiDownload size={20} title="Download" />
-                  </Link>
-                ) : v.status === 'processing' || v.status === 'pending' ? (
-                  <FiLoader size={20} title="Processing" className="spinning" />
-                ) : (
-                  <FiUploadCloud size={20} title="Uploaded" />
-                )}
-              </span>
-            </div>
-          ))
-        )}
-      </section>
-
-      {/* Credits + Profile Cards */}
-      <div className="row-2cards">
-        <section className="card-1 credits-card">
-          <h3>Credits</h3>
-          <p className="count">Credits: {wallet?.balance ?? 0}</p>
-          <Link href="/pricing" className="topup-btn">
-            Top Up
-          </Link>
-        </section>
-
-        <section className="card-1 profile-card">
-          <h3>Your Profile</h3>
-          <p>Total Videos: {totalVideos}</p>
-          <p>Processing: {processing}</p>
-          <p>Completed: {completed}</p>
-          <p>Failed: {failed}</p>
-        </section>
+    {/* Stats Cards */}
+    <div className="stats-grid">
+      <div className="stat-card">
+        <h3>Available Credits</h3>
+        <p className="stat-value">{wallet?.balance ?? 0}</p>
+        <Link href="/pricing" className="stat-btn">Buy More Credits</Link>
       </div>
-    </main>
-  );
+
+      <div className="stat-card">
+        <h3>Total Conversions</h3>
+        <p className="stat-value">{videos.length}</p>
+      </div>
+
+      <div className="stat-card">
+        <h3>Completed</h3>
+        <p className="stat-value completed">
+          {videos.filter((v) => v.status === "completed").length}
+        </p>
+      </div>
+    </div>
+
+    {/* Videos Table */}
+    <section className="table-section">
+      <h3 className="section-title">Your Conversions</h3>
+
+      <div className="table-header">
+        <span>Video</span>
+        <span>Status</span>
+        <span>Date</span>
+        <span>Action</span>
+      </div>
+
+      {videos.length === 0 ? (
+        <p className="no-videos">
+          <em>No videos uploaded yet.</em>
+        </p>
+      ) : (
+        videos.map((v) => (
+          <div key={v._id} className="table-row">
+            <span>{v.originalFileName}</span>
+
+            <span className={`status-pill ${v.status.toLowerCase()}`}>
+              {v.status === "pending" && (
+                <>
+                  <Clock className="status-icon pending" size={16} />
+                  Pending
+                </>
+              )}
+              {v.status === "processing" && (
+                <>
+                  <Clock className="status-icon processing" />
+                  Processing
+                </>
+              )}
+              {v.status === "completed" && (
+                <>
+                  <CheckCircle className="status-icon completed" size={16} />
+                  Completed
+                </>
+              )}
+              {v.status === "expired" && (
+                <>
+                  <AlertCircle className="status-icon expired" size={16} />
+                  Expired
+                </>
+              )}
+              {v.status === "uploaded" && (
+                <>
+                  <UploadCloud className="status-icon uploaded" size={16} />
+                  Uploaded
+                </>
+              )}
+            </span>
+
+            <span>{new Date(v.startedAt).toLocaleDateString("en-GB")}</span>
+
+            <span className="action-cell">
+              {v.status === "completed" ? (
+                <Link
+                  href={v.convertedUrl}
+                  target="_blank"
+                  className="download-btn"
+                >
+                  <Download className="download-icon" size={16} />
+                  Download
+                </Link>
+              ) : v.status === "processing" ? (
+                <span className="processing">Processing...</span>
+              ) : v.status === "pending" ? (
+                <span className="pending">N/A</span>
+              ) : v.status === "expired" ? (
+                <span className="expired">N/A</span>
+              ) : (
+                <span className="pending">N/A</span>
+              )}
+            </span>
+          </div>
+        ))
+      )}
+    </section>
+
+{hasPendingReview && <WriteReviewSection />}
+
+  </main>
+);
+
+
+
+  
 }
 export default withAuth(Dashboard);

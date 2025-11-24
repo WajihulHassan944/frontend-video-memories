@@ -1,69 +1,38 @@
+
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import './blogs.css';
+import { baseUrl } from '@/const';
 import HeroSection from '../home/page';
 
-const blogs = [
-  {
-    title: "🎬 How AI Video Enhancement Works – The Science Behind Bette...",
-    type: "Tutorial",
-    date: "1/15/2024",
-    readTime: "8 min",
-    summary:
-      "A deep dive into the AI-driven pipeline that transforms low-quality videos into stunning high-resolution content, and why it requires...",
-    image: "/blogs/one.jpg",
-    path: "/blogs/vr-conversion-process",
-  },
-  {
-    title: "🚀 Unlocking the Power of Video Enhancement in Business:...",
-    type: "Insights",
-    date: "1/10/2024",
-    readTime: "6 min",
-    summary:
-      "How AI video enhancement technology is revolutionizing business communication, marketing campaigns, and training materials...",
-    image: "/blogs/two.jpg",
-    path: "/blogs/vr-client-expectations",
-  },
-  {
-    title:
-      "📊 Video Upscaling vs Color Enhancement: What's the...",
-    type: "Tutorial",
-    date: "1/8/2024",
-    readTime: "7 min",
-    summary:
-      "Understanding the differences between video upscaling, color correction, and quality enhancement techniques for professional...",
-    image: "/blogs/three.jpg",
-    path: "/blogs/vr-business-advantages",
-  },
-  {
-    title: "🎥 Top 5 Video Enhancement Applications: From Restoration to...",
-    type: "Technology",
-    date: "1/5/2024",
-    readTime: "6 min",
-    summary:
-      "Exploring the most effective video enhancement techniques including noise reduction, sharpening, color grading, and...",
-    image: "/blogs/four.jpg",
-    path: "/blogs/top-vr-applications",
-  },
-  {
-    title: "🔮 The Future of Video Quality: Why AI Enhancement Is Revolutionizing...",
-    type: "Business",
-    date: "1/3/2024",
-    readTime: "6 min",
-    summary:
-      "Exploring how AI-powered video enhancement technology is transforming content creation and bridging the gap between old footage and...",
-    image: "/blogs/five.jpg",
-    path: "/blogs/vr-business-opportunities",
-  },
-];
-
-const Blogs = () => {
+const Blogs = ({ section }) => {
   const router = useRouter();
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await fetch(`${baseUrl}/blogs/all`);
+        const data = await res.json();
+        if (data.success) {
+          const publishedBlogs = data.blogs.filter(
+            (b) => b.status?.toLowerCase() === 'published'
+          );
+          setBlogs(publishedBlogs);
+        }
+      } catch (err) {
+        console.error('Error fetching blogs:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
 
   return (
     <div className="blog-section">
-    
     
 <HeroSection 
   subtitle="Insights & Knowledge"
@@ -76,21 +45,45 @@ const Blogs = () => {
   descColor="#ababba" 
 />  
       <div className="blog-grid">
-        {blogs.map((blog, index) => (
-          <div key={index} className="blog-card" onClick={() => router.push(blog.path)}>
-            <img src={blog.image} alt={blog.title} className="blog-image" />
-            <div className="blog-content">
-              <div className="blog-meta">
-                <span className={`blog-tag ${blog.type.toLowerCase()}`}>{blog.type}</span>
-                <span>📅 {blog.date}</span>
-                <span>⏱ {blog.readTime}</span>
+        {loading ? (
+          <p>Loading blogs...</p>
+        ) : blogs.length === 0 ? (
+          <p>No blogs found.</p>
+        ) : (
+          blogs.map((blog) => (
+            <div
+              key={blog._id}
+              className="blog-card"
+              onClick={() => router.push(`/blogs/${blog.slug}`)}
+            >
+              <img
+                src={blog.featuredImage}
+                alt={blog.title}
+                className="blog-image"
+              />
+              <div className="blog-content">
+                <div className="blog-meta">
+                  <span className={`blog-tag ${blog.categories?.[0]?.toLowerCase() || 'general'}`}>
+                    {blog.categories?.[0] || 'General'}
+                  </span>
+                  <span>📅 {new Date(blog.publishDate).toLocaleDateString()}</span>
+                  <span>⏱ 5 min</span>
+                </div>
+                <h3 className="blog-heading">
+                  {blog.title.length > 66
+                    ? blog.title.slice(0, 66) + '...'
+                    : blog.title}
+                </h3>
+                <p className="blog-summary">
+                  {blog.excerpt.length > 123
+                    ? blog.excerpt.slice(0, 123) + '...'
+                    : blog.excerpt}
+                </p>
+                <p className="blog-readmore">Read more →</p>
               </div>
-              <h3 className="blog-heading">{blog.title}</h3>
-              <p className="blog-summary">{blog.summary}</p>
-              <p className="blog-readmore">Read more →</p>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

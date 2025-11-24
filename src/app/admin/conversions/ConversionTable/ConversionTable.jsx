@@ -290,7 +290,12 @@ const filteredConversions = conversions.filter((c) => {
           <br />
           <span className="file-size">{c.fileSize || "-"}</span>
         </td>
-        <td>{c.type || "-"}</td>
+        <td>
+  {Array.isArray(c.type)
+    ? c.type.map((t) => `${t.type} (${t.selectedOption})`).join(", ")
+    : "-"}
+</td>
+
         <td>
           {c.status === "processing" ? (
             <>

@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Provider } from 'react-redux';
 import { store } from '@/redux/store';
+import Pusher from 'pusher-js';
+import { baseUrl } from '@/const';
 
 import Footer from './footer/Footer';
 import UserInitializer from './UserInitializer';
@@ -12,45 +14,117 @@ import { Toaster } from 'react-hot-toast';
 import AdminSideNav from './admin/AdminNav/page';
 import TopNav from './admin/AdminNav/TopNav/TopNav';
 import Navbar from './navbar/Navbar';
-// import CouponBanner from '../../components/Coupons/CouponBanner';
+import CouponBanner from '../../components/Coupons/CouponBanner';
 
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [liveVisitors, setLiveVisitors] = useState(0);
+
+  // 🔥 COMING SOON FLAG
+  const [isComingSoon, setIsComingSoon] = useState(false);
 
   const isAdminLogin = pathname === '/admin/login';
   const isAdminRoute = pathname.startsWith('/admin') && !isAdminLogin;
-const isAdminRoot = pathname === '/admin';
-  // Set body background color dynamically
+  const isAdminRoot = pathname === '/admin';
+
+  // ❗ If coming soon, hide UI (navbar + footer + coupon banner)
+  const hideClientUI = isComingSoon || (isAdminRoute || isAdminLogin);
+
+  // Admin background
   useEffect(() => {
-    if (isAdminRoute) {
-      document.body.style.background = '#fff';
-    } else {
-      document.body.style.background = ''; // reset (use your default CSS)
-    }
+    document.body.style.background = isAdminRoute ? '#fff' : '';
   }, [isAdminRoute]);
+
+  // Live Visitors System
+  useEffect(() => {
+     const connectUser = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/live-visitors/connect`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const data = await res.json();
+
+      // ✅ Set Coming Soon on initial connect
+      if (data.success && typeof data.isComingSoon === "boolean") {
+        setIsComingSoon(data.isComingSoon);
+      }
+    } catch (err) {
+      console.error("Live visitors connect error:", err);
+    }
+  };
+
+    const disconnectUser = async () => {
+      try {
+        await fetch(`${baseUrl}/live-visitors/disconnect`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+        });
+      } catch (err) {
+        console.error('Live visitors disconnect error:', err);
+      }
+    };
+
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER,
+    });
+
+    const channel = pusher.subscribe('exclusive');
+    channel.bind('live-visitors-update', (data) => {
+      setLiveVisitors(data.count);
+    });
+
+    connectUser();
+    window.addEventListener('beforeunload', disconnectUser);
+
+    return () => {
+      disconnectUser();
+      channel.unbind_all();
+      channel.unsubscribe();
+      window.removeEventListener('beforeunload', disconnectUser);
+      pusher.disconnect();
+    };
+  }, [isAdminRoute, isAdminLogin]);
 
   return (
     <GoogleOAuthProvider clientId="1004939758533-71i65l6necn14sclo1popjsqkci3krmk.apps.googleusercontent.com">
       <Provider store={store}>
         <UserInitializer />
-{/* {!isAdminRoute && !isAdminLogin && <CouponBanner />} */}
 
-        {/* Admin vs Client layout switching */}
+        {/* 🎟️ Coupon Banner (hide if coming soon OR admin) */}
+        {!hideClientUI && <CouponBanner />}
+
+        {/* 🧱 ADMIN LAYOUT */}
         {isAdminRoute && (
           <>
-            <AdminSideNav isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+            <AdminSideNav
+              isOpen={isSidebarOpen}
+              setIsOpen={setIsSidebarOpen}
+            />
             {isAdminRoot && <TopNav isSidebarOpen={isSidebarOpen} />}
           </>
         )}
 
-        {!isAdminRoute && !isAdminLogin && <Navbar />}
+        {/* 🧭 NAVBAR (hide when isComingSoon = true) */}
+        {!hideClientUI && <Navbar />}
 
-        <main className={isAdminRoute ? (isSidebarOpen ? 'admin-main shifted' : 'admin-main full') : ''}>
+        {/* MAIN CONTENT */}
+        <main
+          className={
+            isAdminRoute
+              ? isSidebarOpen
+                ? 'admin-main shifted'
+                : 'admin-main full'
+              : ''
+          }
+        >
           {children}
         </main>
 
-        {!isAdminRoute && !isAdminLogin && <Footer />}
+        {/* FOOTER (hide when ComingSoon true) */}
+        {!hideClientUI && <Footer />}
 
         <Toaster
           position="top-center"

@@ -7,11 +7,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 50px;
 }
 .testimonails-main{
     width: 100%;
-    max-width: 1300px;
+    max-width: 1200px;
 }
 .testimonial-title {
   font-size: 34px;
@@ -32,6 +31,8 @@
   gap: 20px;
   justify-content: space-between;
   margin-bottom: 60px;
+  opacity: 1 !important;  /* to override Framer Motion SSR artifacts */
+  overflow: visible;
   
 }
 
@@ -39,7 +40,8 @@
   background-color: #0000004d;
   border-radius: 20px;
   padding: 25px;
-  flex: 1;
+  width: 100%;
+  max-width: 380px;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -119,5 +121,7 @@
 
 .stat .label {
   font-size: 14px;
-  opacity: 0.8;
+  opacity: 0.75;
+  font-weight: 400;
+  margin-top: 4px;
 }

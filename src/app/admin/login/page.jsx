@@ -80,7 +80,7 @@ setLoading(true);
             height={80}
             style={{ objectFit: "contain" }}
           /> */}
-          <h2 className="login-title">Xclusive 3D Admin</h2>
+          <h2 className="login-title">Video Memories Admin</h2>
         </div>
 
         <form className="login-form" onSubmit={handleLogin}>
