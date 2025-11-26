@@ -5,10 +5,12 @@ import './faq.css';
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
 import Link from 'next/link';
 import HeroSection from '../home/page';
+import { parseDynamicTitle } from '@/utils/parseTitle';
 
 
-export default function FaqClient({faqs}) {
+export default function FaqClient({ faqs, section }) {
   const [openIdx, setOpenIdx] = useState(null);
+const parsedHeroTitle = parseDynamicTitle(section?.description);
 
   const toggle = (idx) => {
     setOpenIdx(openIdx === idx ? null : idx);
@@ -18,17 +20,13 @@ export default function FaqClient({faqs}) {
   return (
     <>
       <section className="faq-section">
-       
-<HeroSection 
-  subtitle="Support & Help"
-  title={[
-    { text: "Frequently", className: "outline" },
-    { text: "Asked", className: "bold" },
-    { text: "Questions", className: "gradient" },
-  ]}
-  description="Find answers to common questions about our video enhancement \n service"
-  descColor="#ababba" 
-/>  
+    
+     <HeroSection
+  subtitle={section?.title}
+  title={parsedHeroTitle}
+  description={section?.subDescription}
+  descColor="#ababba"
+/> 
         <ul className="faq-list">
           {faqs.map(({ q, a }, idx) => (
             <li key={idx} className="faq-item">

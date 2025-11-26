@@ -7,7 +7,8 @@ import { baseUrl } from '@/const';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import HeroSection from '../home/page';
-const Contact = () => {
+import { parseDynamicTitle } from '@/utils/parseTitle';
+const Contact = ({ page }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,6 +20,9 @@ const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+const hero = page?.sections?.find(s => s.sectionId === "hero");
+const contactSection = page?.sections?.find(s => s.sectionId === "section-1");
+const parsedHeroTitle = parseDynamicTitle(hero?.description);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -64,18 +68,12 @@ try {
   return (
     <div className="contact-container">
      
-     
-<HeroSection 
-  subtitle="Get In Touch"
-  title={[
-    { text: "Let's talk about", className: "outline" },
-    { text: "your video", className: "bold" },
-    { text: "project", className: "gradient" },
-  ]}
-   description={`<span className='highlight'>Have questions</span> about video enhancement? Need help with a custom \n project? We're here to help.`}
-
-  descColor="#ababba" 
-/>  
+     <HeroSection
+  subtitle={hero?.title}
+  title={parsedHeroTitle}
+  description={hero?.subDescription}
+  descColor="#ababba"
+/>
 
 
   <div className="contact-sec-outer">
@@ -148,26 +146,23 @@ try {
 
         {/* Response Time */}
 <div className="contact-card">
-  <h2 className="contact-heading">Get in touch</h2>
+  <h2 className="contact-heading">{contactSection?.title}</h2>
 
-  <div className="contact-item">
-    <div className="contact-icon">📧</div>
-    <div className="contact-info">
-      <h3>Email</h3>
-      <p className="contact-main">support@videomemories.eu</p>
-      <p className="contact-sub">We'll respond within 24 hours</p>
-    </div>
-  </div>
+  {contactSection?.cards?.map((c) => (
+    <div className="contact-item" key={c._id}>
+      <div className="contact-icon">
+        {c.title === "Email" ? "📧" : "⏰"}
+      </div>
 
-  <div className="contact-item">
-    <div className="contact-icon">⏰</div>
-    <div className="contact-info">
-      <h3>Response Time</h3>
-      <p className="contact-main">24 hours or less</p>
-      <p className="contact-sub">Monday - Friday, 9AM - 6PM CET</p>
+      <div className="contact-info">
+        <h3>{c.title}</h3>
+        <p className="contact-main">{c.description}</p>
+        <p className="contact-sub">{c.subDescription}</p>
+      </div>
     </div>
-  </div>
+  ))}
 </div>
+
 
 
 

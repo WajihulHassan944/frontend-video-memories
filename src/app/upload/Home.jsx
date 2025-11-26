@@ -18,7 +18,7 @@ import EnhancementDemo from './EnhancementDemo/EnhancementDemo';
 import toast from 'react-hot-toast';
 
 
-const Home = () => {
+const Home = ({seeDifference, whyUpgrade, whatExpect, updates}) => {
   const [videoFile, setVideoFile] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -435,7 +435,7 @@ console.log("=== Button Disable Debug ===");
 </div>
 </center>
 
-<EnhancementDemo />
+<EnhancementDemo sectionData={seeDifference} />
 
       <CustomerTestimonials />
    
@@ -445,10 +445,10 @@ console.log("=== Button Disable Debug ===");
       </div></center>}
 {/* {isLoggedIn && <center><Credits /></center>} */}
     <PricingSectionInPricing />
-    <Whycloud />
+    <Whycloud sectionData={whyUpgrade} />
     {/* <ImmersiveThreeD /> */}
-    <Whatexpect />
-    <NewsletterSignup />
+    <Whatexpect sectionData={whatExpect} />
+    <NewsletterSignup sectionData={updates} />
     </div>
   );
 };

@@ -1,12 +1,25 @@
 import React from 'react';
 import './Whatexpect.css';
 
-const Whatexpect = () => {
+const Whatexpect = ({ sectionData }) => {
+  if (!sectionData) return null;
+
   return (
     <div className="expect-wrapper">
-      <h2 className="expect-heading">What you can <span className='highlight'>expect</span>?</h2>
-      <p className="expect-subtext">See the difference between before and after enhancement
-</p>
+  <h2
+        className="expect-heading"
+        dangerouslySetInnerHTML={{
+          __html: sectionData.title
+            ?.replace(/\\u003C/g, "<")
+            .replace(/\\u003E/g, ">")
+            .replace(/className=/g, "class="),
+        }}
+      />
+
+      {sectionData.description && (
+        <p className="expect-subtext">{sectionData.description}</p>
+      )}
+
       <div className="video-container">
         <iframe
           src="https://www.youtube.com/embed/76MVs_AkjTY?si=fJiLDbgeLkNKI1LS"

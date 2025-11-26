@@ -5,12 +5,14 @@ import { useRouter } from 'next/navigation';
 import './blogs.css';
 import { baseUrl } from '@/const';
 import HeroSection from '../home/page';
+import { parseDynamicTitle } from '@/utils/parseTitle';
 
 const Blogs = ({ section }) => {
   const router = useRouter();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
+const parsedHeroTitle = parseDynamicTitle(section?.description);
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
@@ -34,16 +36,12 @@ const Blogs = ({ section }) => {
   return (
     <div className="blog-section">
     
-<HeroSection 
-  subtitle="Insights & Knowledge"
-  title={[
-    { text: "Video", className: "outline" },
-    { text: "Enhancement", className: "bold" },
-    { text: "Blog", className: "gradient" },
-  ]}
-  description="Discover everything about video enhancement, upscaling, and quality \n improvement. From restoration to optimization."
-  descColor="#ababba" 
-/>  
+     <HeroSection
+  subtitle={section?.title}
+  title={parsedHeroTitle}
+  description={section?.subDescription}
+  descColor="#ababba"
+/> 
       <div className="blog-grid">
         {loading ? (
           <p>Loading blogs...</p>

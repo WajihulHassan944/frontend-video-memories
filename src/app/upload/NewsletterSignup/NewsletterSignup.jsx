@@ -3,7 +3,9 @@ import './NewsletterSignup.css';
 import { baseUrl } from '@/const';
 import toast from 'react-hot-toast';
 
-const NewsletterSignup = () => {
+const NewsletterSignup = ({ sectionData }) => {
+  if (!sectionData) return null;
+
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -39,14 +41,25 @@ const NewsletterSignup = () => {
       setLoading(false);
     }
   };
-
-  return (
+return (
     <div className="newsletter-section">
-      <h2 className="newsletter-heading">Stay <span className='highlight'>up to date</span></h2>
-      <p className="newsletter-subheading">
-        Get the latest updates about AI video enhancement and exclusive offers
-      </p>
+      {/* ✅ Dynamic Title */}
+      <h2
+        className="newsletter-heading"
+        dangerouslySetInnerHTML={{
+          __html: sectionData.title
+            ?.replace(/\\u003C/g, "<")
+            .replace(/\\u003E/g, ">")
+            .replace(/className=/g, "class="),
+        }}
+      />
 
+      {/* ✅ Dynamic Description */}
+      {sectionData.description && (
+        <p className="newsletter-subheading">{sectionData.description}</p>
+      )}
+
+      {/* ✅ Form (same logic as before) */}
       <div className="newsletter-form-container">
         <form className="newsletter-form" onSubmit={handleSubmit}>
           <input
@@ -65,12 +78,13 @@ const NewsletterSignup = () => {
             {loading ? 'Submitting...' : 'Keep me up to date'}
           </button>
         </form>
-        <p className="newsletter-note">
-          We respect your privacy. You can unsubscribe at any time.
-        </p>
+
+        {/* ✅ Dynamic subDescription */}
+        {sectionData.subDescription && (
+          <p className="newsletter-note">{sectionData.subDescription}</p>
+        )}
       </div>
     </div>
-  );
-};
+  );};
 
 export default NewsletterSignup;

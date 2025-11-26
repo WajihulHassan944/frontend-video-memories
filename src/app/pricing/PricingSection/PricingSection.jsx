@@ -100,7 +100,7 @@ const sortedPlans = mappedPlans.sort((a, b) => a.credits - b.credits);
   return (
     <>
       <CreditUsagePerMinute />
-      {!isLoggedIn && (
+      {/* {!isLoggedIn && (
         <center>
           <div
             className="free-minute-pricing"
@@ -111,7 +111,7 @@ const sortedPlans = mappedPlans.sort((a, b) => a.credits - b.credits);
             <span>Newsletter signup required • Excludes 8K content</span>
           </div>
         </center>
-      )}
+      )} */}
 
       <h1 className="buy-credit-title">
         Buy your <span className="highlight"> enhancement credits</span>
