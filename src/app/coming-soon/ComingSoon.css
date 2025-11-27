@@ -1,23 +1,3 @@
-.coming-soon-wrap {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', sans-serif;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 95vh;
-  text-align: center;
-}
-
-.coming-soon-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 60px;
-  padding: 20px;
-  position:relative;
-}
 .dot1{
 	position:absolute;
 	top:60%;

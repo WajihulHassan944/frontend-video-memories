@@ -13,6 +13,7 @@ export default function Page() {
 
   const [sections, setSections] = useState([]);
   const [isComingSoon, setIsComingSoon] = useState(false);
+const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPageData = async () => {
@@ -33,6 +34,7 @@ export default function Page() {
       } catch (err) {
         console.error("Error fetching home page data:", err);
       }
+        setLoading(false);
     };
 
     fetchPageData();
@@ -43,7 +45,16 @@ export default function Page() {
   // 🚀 HERO DATA
   const heroSection = getSection("hero");
  const parsedHeroTitle = parseDynamicTitle(heroSection?.description);
- 
+
+  // 🔥 Block rendering until API resolves
+  if (loading) {
+    return (
+        <div className="coming-soon-wrap" >
+        <div className="coming-soon-section loading-text">Loading...</div>
+      </div>
+  
+    );
+  } 
   return (
     <main style={{ paddingTop: "20px" }}>
       {isComingSoon ? (
