@@ -42,6 +42,14 @@ const [loading, setLoading] = useState(true);
 
   const getSection = (id) => sections.find((sec) => sec.sectionId === id);
 
+  const user = useSelector((state) => state.user);
+
+  // ⬇️ ADMIN ALWAYS DISABLES COMING SOON
+  useEffect(() => {
+    if (user?.role?.includes("admin")) {
+      setIsComingSoon(false);
+    }
+  }, [user]);
   // 🚀 HERO DATA
   const heroSection = getSection("hero");
  const parsedHeroTitle = parseDynamicTitle(heroSection?.description);
