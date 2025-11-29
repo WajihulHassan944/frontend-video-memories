@@ -1,8 +1,18 @@
 // EnhancementDemo.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import './EnhancementDemo.css';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchWebsiteMedia } from '@/redux/features/websiteMedia';
+import Vimeo from '@u-wave/react-vimeo';
 export default function EnhancementDemo() {
+   const dispatch = useDispatch();
+  const { media } = useSelector(state => state.websiteMedia);
+  useEffect(() => {
+    dispatch(fetchWebsiteMedia());
+  }, [dispatch]);
+
+  const enhancementMedia = media.find(item => item.name === "Enhancement Demo");
+
   return (
     <section className="example-section">
       <div className="example-inner">
@@ -11,14 +21,25 @@ export default function EnhancementDemo() {
 
         <div className="device-frame">
           <div className="device-inner">
-            {/* video path provided by user */}
-            <video
-              className="demo-video"
-              src="/assets/enhancement-demo.mp4"
-              poster="/assets/poster-enhancement.jpg"
-              controls
-              preload="metadata"
-            />
+         {enhancementMedia && enhancementMedia.platform === "vimeo" ? (
+  <div className="vimeo-wrapper">
+  <Vimeo
+    video={enhancementMedia.url.split('/').pop()}
+    width="100%"
+    height="100%"
+    autoplay={false}
+    controls
+  />
+</div>
+) : (
+  <video
+    className="demo-video"
+    src={enhancementMedia ? enhancementMedia.url : "/assets/enhancement-demo.mp4"}
+    poster="/assets/poster-enhancement.jpg"
+    controls
+    preload="metadata"
+  />
+)}
           </div>
        
         <div className="comparison-row">

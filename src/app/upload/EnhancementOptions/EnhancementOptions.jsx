@@ -79,8 +79,7 @@ const EnhancementOptions = ({ onChange, videoTime = 0 }) => {
           </div>
         </li>
 
-        {/* Face Enhancement */}
-        <li onClick={() => toggleOption('face')} className="enhancement-row">
+        {/* <li onClick={() => toggleOption('face')} className="enhancement-row">
           <span className={`checkbox ${selected.face ? 'checked' : ''}`}></span>
           <div className="enhancement-item">
             <h3><Eye size={17} className="enhancement-icon" /> Face Enhancement</h3>
@@ -88,7 +87,6 @@ const EnhancementOptions = ({ onChange, videoTime = 0 }) => {
           </div>
         </li>
 
-        {/* Color Enhancement */}
         <li onClick={() => toggleOption('color')} className="enhancement-row">
           <span className={`checkbox ${selected.color ? 'checked' : ''}`}></span>
           <div className="enhancement-item">
@@ -109,7 +107,6 @@ const EnhancementOptions = ({ onChange, videoTime = 0 }) => {
           </div>
         </li>
 
-        {/* SDR → HDR */}
         <li onClick={() => toggleOption('hdr')} className="enhancement-row">
           <span className={`checkbox ${selected.hdr ? 'checked' : ''}`}></span>
           <div className="enhancement-item">
@@ -119,7 +116,7 @@ const EnhancementOptions = ({ onChange, videoTime = 0 }) => {
             </h3>
             <p>Convert standard dynamic range to high dynamic range for richer colors</p>
           </div>
-        </li>
+        </li> */}
 
         {/* Video Upscaling */}
         <li onClick={() => toggleOption('upscaling')} className="enhancement-row">

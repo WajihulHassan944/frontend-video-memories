@@ -39,13 +39,14 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   margin: 32px auto 26px;
   max-width: 980px;
-  width: fit-content;
+  width: 100%;
 }
 
 /* inner darker rounded area to mimic the screenshot rounded inner edge */
 .example-section .device-inner {
   display: flex;
   justify-content: center;
+  width: 100%;
   align-items: center;
 }
 
@@ -56,6 +57,20 @@
   height: auto;
   border-radius: 15px;
   }
+.vimeo-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  width: 100%;
+}
+
+.vimeo-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
 /* comparison cards container below the video */
 .example-section .comparison-row {
