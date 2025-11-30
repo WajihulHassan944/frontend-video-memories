@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://www.videomemories.eu/api/$1"
+      "destination": "https://backend-video-memories.vercel.app/api/$1"
     }
   ]
 }
