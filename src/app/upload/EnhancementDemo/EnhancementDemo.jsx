@@ -1,4 +1,4 @@
-// EnhancementDemo.jsx
+'use client';
 import React, { useEffect } from 'react';
 import './EnhancementDemo.css';
 import { useDispatch, useSelector } from 'react-redux';
