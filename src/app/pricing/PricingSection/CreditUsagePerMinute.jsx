@@ -19,7 +19,7 @@ const CreditUsagePerMinute = () => {
       <span className="credit">6 credits/min</span>
     </div>
 
-    <div className="credit-row">
+    {/* <div className="credit-row">
       <span className="feature-col">Face Enhancement</span>
       <span className="credit">3 credits/min</span>
       <span className="credit">8 credits/min</span>
@@ -35,7 +35,7 @@ const CreditUsagePerMinute = () => {
       <span className="feature-col">SDR → HDR Conversion</span>
       <span className="credit">4 credits/min</span>
       <span className="credit">10 credits/min</span>
-    </div>
+    </div> */}
 
     <div className="credit-row">
       <span className="feature-col">Video Upscaling (2x–4x)</span>
