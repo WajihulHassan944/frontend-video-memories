@@ -7,6 +7,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { baseUrl } from "@/const";
 import ComingSoon from "./coming-soon/ComingSoon";
 import { parseDynamicTitle } from "@/utils/parseTitle";
+import { usePathname } from "next/navigation";
 
 export default function Page() {
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
@@ -14,7 +15,12 @@ export default function Page() {
   const [sections, setSections] = useState([]);
   const [isComingSoon, setIsComingSoon] = useState(false);
 const [loading, setLoading] = useState(true);
-
+const pathname = usePathname();
+useEffect(() => {
+  if (pathname?.startsWith("/blogs")) {
+    setIsComingSoon(false);
+  }
+}, [pathname]);
   useEffect(() => {
     const fetchPageData = async () => {
       try {
