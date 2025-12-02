@@ -4,7 +4,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import BillingMethods from './BillingMethods';
 import "./TopupCredit.css";
-const stripePromise = loadStripe("pk_test_51SEO9XH1NNpkUGNq59gQ0BD0TruMhI6Jv1mJWalWczLEwvbncESJfRelyazAvyJcChGipUaUka93jxKykkQm1IfM00EHDtM9mE");
+const stripePromise = loadStripe("pk_live_51RvNstHpow7HoYZURyGWZHskSTYGsl0zHWJVvK9ItweHZgvmo1eMyyDrbESgcorVsb7EHjv6CvTaQSwKjXfFoWGp0066SXf4lT");
 import { baseUrl } from '@/const';
 import withAuth from '@/hooks/withAuth';
 const AddBilling = () => {
