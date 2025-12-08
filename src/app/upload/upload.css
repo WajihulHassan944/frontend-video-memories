@@ -128,8 +128,8 @@ padding-top: 0;
   font-weight: 700;
   border-radius: 30px;
   cursor: pointer;
-  margin-bottom: 50px;
-  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-top: 13px;
   width: 100%;
 }
 .credits {
@@ -500,4 +500,11 @@ padding-top: 0;
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   white-space: nowrap;
+}
+
+.cautionPara{
+  color: #9ca3af;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 50px;
 }

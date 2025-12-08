@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import './upload.css';
-import { FiUpload } from 'react-icons/fi';
+import { FiCheck, FiUpload } from 'react-icons/fi';
 import { baseUrl } from '@/const';
 import { useRouter } from 'next/navigation';
 import { refreshAndDispatchUser } from '@/utils/refreshUser';
@@ -23,6 +23,8 @@ const Home = ({seeDifference, whyUpgrade, whatExpect, updates}) => {
   const [videoPreview, setVideoPreview] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState('');
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
+
   const inputRef = useRef(null);
 const [dragActive, setDragActive] = useState(false);
 const isLoggedIn = useSelector((state) => state.user?.isLoggedIn);
@@ -395,6 +397,17 @@ console.log(signedUrl);
     </div>
   </div>
 )}
+ <div className="terms-checkbox" onClick={() => setAgreeToTerms(!agreeToTerms)}>
+  <div className={`custom-checkbox ${agreeToTerms ? 'checked' : ''}`}>
+    {agreeToTerms && <FiCheck size={12} color="#fff" />}
+  </div>
+  <label style={{color:'#d1d5db', fontWeight:'500'}}>
+    I confirm I have the legal right to upload this content and agree to the{' '}
+    <a href="/termsandconditions" target="_blank" rel="noopener noreferrer" style={{color:'#c084fc'}}>
+      Terms and Conditions
+    </a>
+  </label>
+</div>
 
 {(() => {
   const noEnhancementSelected =
@@ -403,7 +416,7 @@ console.log(signedUrl);
   const isDisabled =
     uploading ||
     (isLoggedIn && showVideoNote && videoMeta && !videoMeta.canProceed) ||
-    !videoFile ||
+    !videoFile || !agreeToTerms ||
     noEnhancementSelected;
 console.log("=== Button Disable Debug ===");
   console.log("uploading:", uploading);
@@ -434,6 +447,7 @@ console.log("=== Button Disable Debug ===");
   
 </div>
 </center>
+{!videoFile && <p className='cautionPara'>Please upload a video file to continue</p>}
 
 <EnhancementDemo sectionData={seeDifference} />
 
