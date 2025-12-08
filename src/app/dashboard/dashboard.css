@@ -156,6 +156,20 @@ font-weight: 600;
   color: #f87171;
 }
 
+/* ✅ NEW: Uploaded */
+.status-icon.uploaded {
+  color: #60a5fa; /* blue */
+}
+
+/* ✅ NEW: Queued */
+.status-icon.queued {
+  color: #a78bfa; /* purple */
+}
+
+/* ✅ NEW: Failed */
+.status-icon.failed {
+  color: #ef4444; /* red */
+}
 /* === Actions === */
 .action-cell {
   display: flex;
